@@ -1,59 +1,60 @@
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 public class TrainConsistManagementApp {
 
-    // ===== CUSTOM RUNTIME EXCEPTION =====
-    static class CargoSafetyException extends RuntimeException {
-        public CargoSafetyException(String message) {
-            super(message);
+
+    static class Bogie {
+        String name;
+        int capacity;
+
+        Bogie(String name, int capacity) {
+            this.name = name;
+            this.capacity = capacity;
         }
+        public int getCapacity() {
+            return capacity;
+        }
+        public String toString() {
+            return name + " -> " + capacity;
+        }
+        public String getName() {
+            return name;
+        }
+
     }
-
-
-    static class GoodsBogie {
-        String shape;
-        String cargo;
-
-        GoodsBogie(String shape) {
-            this.shape = shape;
-        }
-
-        // Assign cargo with safety validation
-        void assignCargo(String cargo) {
-
-            try {
-                // RULE: Rectangular cannot carry Petroleum
-                if (shape.equalsIgnoreCase("Rectangular") &&
-                        cargo.equalsIgnoreCase("Petroleum")) {
-                    throw new CargoSafetyException("Unsafe cargo assignment!");
-                }
-
-                this.cargo = cargo;
-                System.out.println("Cargo assigned successfully -> " + cargo);
-
-            } catch (CargoSafetyException e) {
-                System.out.println("Error: " + e.getMessage());
-
-            } finally {
-                System.out.println("Cargo validation completed for "
-                        + shape + " bogie");
-            }
-        }
-    }
-
 
     public static void main(String[] args) {
 
         System.out.println("=================================");
-        System.out.println("UC15 Safe Cargo Assignment");
+        System.out.println("=== UC7 Sort Bogies by Capacity (Comparator) ===");
         System.out.println("=================================\n");
 
 
-        GoodsBogie g1 = new GoodsBogie("Cylindrical");
-        g1.assignCargo("Petroleum");
+        List<Bogie> bogies = new ArrayList<>();
 
 
-        GoodsBogie g2 = new GoodsBogie("Rectangular");
-        g2.assignCargo("Petroleum");
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 56));
+        bogies.add(new Bogie("First Class", 24));
 
-        System.out.println("\nUC15 runtime handling completed...");
+
+        System.out.println("Before Sorting:");
+        for (Bogie b : bogies) {
+            System.out.println(b);
+        }
+
+
+        bogies.sort(Comparator.comparingInt(b -> b.capacity));
+
+
+        System.out.println("\nAfter Sorting (by capacity):");
+        for (Bogie b : bogies) {
+            System.out.println(b);
+        }
+
+
+        System.out.println("\nUC7 sorting completed...");
     }
 }
