@@ -13,10 +13,13 @@ public class TrainConsistManagementApp {
             this.name = name;
             this.capacity = capacity;
         }
-
+        public int getCapacity() {
+            return capacity;
+        }
         public String toString() {
             return name + " -> " + capacity;
         }
+
     }
 
     public static void main(String[] args) {
@@ -33,7 +36,7 @@ public class TrainConsistManagementApp {
         bogies.add(new Bogie("AC Chair", 56));
         bogies.add(new Bogie("First Class", 24));
 
-        // 🔹 Before Sorting
+
         System.out.println("Before Sorting:");
         for (Bogie b : bogies) {
             System.out.println(b);
